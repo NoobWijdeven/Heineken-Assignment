@@ -1,0 +1,13 @@
+{
+  "data_kind": "synthetic",
+  "analysis_date": "2018-08-31",
+  "model_version": "synthetic-demo-v1",
+  "schema_version": "1.0",
+  "selected_model": "synthetic_fixture",
+  "prediction_horizon_days": 60,
+  "thresholds": {
+    "medium": 0.45,
+    "high": 0.75
+  },
+  "notice": "All records, histories, probabilities and thresholds are fictional."
+}
