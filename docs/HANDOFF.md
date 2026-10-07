@@ -1,5 +1,7 @@
 # Identify → Act handoff
 
+> **Update:** the Act layer is now built. See [CHANGES_FROM_DEMIAN.md](CHANGES_FROM_DEMIAN.md) for what changed.
+
 ## Entry points
 
 Use `examples/scored_accounts.csv` during development. After running the pipeline, switch to `outputs/scored_accounts.csv`; column names remain the same. CSV contains exactly one row per account, with string IDs and schema version `1.0`. Do not infer the account ID or schema version as numeric.
