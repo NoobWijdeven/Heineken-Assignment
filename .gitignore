@@ -1,0 +1,14 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+.env*
+.streamlit/secrets.toml
+data/*
+!data/README.md
+outputs/*
+!outputs/README.md
+models/*
+!models/README.md
+*.zip
+*.log
