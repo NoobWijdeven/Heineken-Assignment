@@ -11,8 +11,9 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 from app.data_access import read_outputs, filter_accounts, selected_account_payload
 from app.action_layer import recommended_action
+from app.act_views import action_card, render_act_tab
 
-st.set_page_config(page_title="Account Compass · Identify", page_icon="🧭", layout="wide")
+st.set_page_config(page_title="Account Compass · Identify & Act", page_icon="🧭", layout="wide")
 st.markdown("""
 <style>
 .block-container {padding-top:2rem; padding-bottom:2rem; max-width:1500px;}
@@ -44,8 +45,9 @@ def show_number(value, suffix="", decimals=0):
 
 
 default_folder = ROOT / "outputs"
+demo_folder = ROOT / "demo_data" / "identify"
 configured = os.environ.get("IDENTIFY_OUTPUT_DIR")
-folder = Path(configured) if configured else default_folder if (default_folder / "scored_accounts.csv").exists() else ROOT / "examples"
+folder = Path(configured) if configured else default_folder if (default_folder / "scored_accounts.csv").exists() else demo_folder if (demo_folder / "scored_accounts.csv").exists() else ROOT / "examples"
 if not (folder / "scored_accounts.csv").exists():
     st.error("No scored-account file found. Run python -m src.score_accounts, or unset IDENTIFY_OUTPUT_DIR to use the synthetic demo.")
     st.stop()
@@ -58,8 +60,8 @@ except (ValueError, KeyError, OSError) as error:
     st.stop()
 synthetic = metadata.get("data_kind") == "synthetic" or accounts.data_kind.eq("synthetic").all()
 
-st.markdown('<div class="eyebrow">HEINEKEN × AISO · PART 1: IDENTIFY</div>', unsafe_allow_html=True)
-st.markdown('<div class="hero"><h1>Account Compass</h1><p>Spot changing account behaviour. Review the evidence. Hand the next step to your teammate.</p></div>', unsafe_allow_html=True)
+st.markdown('<div class="eyebrow">HEINEKEN × AISO · IDENTIFY · PRIORITISE · ACT</div>', unsafe_allow_html=True)
+st.markdown('<div class="hero"><h1>Account Compass</h1><p>Spot changing account behaviour, see who to save first, and act: rep visit, AI call or WhatsApp.</p></div>', unsafe_allow_html=True)
 st.caption(f"As of {accounts.analysis_date.iloc[0]} · Forecast: no placed order in the next 60 days · Relative merchandise value, no currency")
 if synthetic:
     st.info("SYNTHETIC DEMO · All accounts, histories and risk estimates shown here are fictional. Run the pipeline on the supplied dataset to view measured outputs.")
@@ -93,7 +95,9 @@ c4.metric("High-risk value", f"{filtered.loc[filtered.risk_level.eq('High'), 'hi
 c5.metric("Evidence score", f"{filtered.evidence_confidence_score.mean():.2f}" if len(filtered) else "—")
 st.caption(f"{filtered.model_eligible.sum():,} accounts in view have modelled probabilities; {len(filtered) - filtered.model_eligible.sum():,} have insufficient established history. Evidence score is a heuristic from 0 to 1.")
 
-work_tab, methods_tab = st.tabs(["Account workspace", "Validation & handoff"])
+act_tab, work_tab, methods_tab = st.tabs(["Act: this week", "Account workspace", "Validation & handoff"])
+with act_tab:
+    render_act_tab(accounts, history)
 with work_tab:
     st.subheader("Account watchlist")
     sort_by = st.selectbox("Sort by", ["Highest risk", "Highest historical value", "Longest inactivity"], key="sort")
@@ -177,10 +181,8 @@ with work_tab:
         st.markdown("#### Recommended action")
         payload = selected_account_payload(row)
         action = recommended_action(payload)
-        with st.container(border=True):
-            st.markdown(f"**{action['title']}**")
-            st.write(action["message"])
-            st.download_button("Export selected account JSON", json.dumps(payload, indent=2), file_name=f"{selected}_handoff.json", mime="application/json")
+        action_card(action, accounts)
+        st.download_button("Export selected account JSON", json.dumps(payload, indent=2), file_name=f"{selected}_handoff.json", mime="application/json")
 
 with methods_tab:
     st.subheader("How to interpret the forecast")
