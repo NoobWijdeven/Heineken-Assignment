@@ -6,6 +6,10 @@ The app opens on **Act: this week**: Sep's weekly visit routes, Daniel's morning
 
 Account Compass's 60-day Identify model has reproducible validation in this repository. Ritmo's separate 60-day risk estimates, saveability weights and rankings were generated outside it; their modelling scripts and validation reports are still needed before treating them as verified results. Call outcomes, offers, WhatsApp sending and feedback distributions are demo simulations. The optional ElevenLabs widget requires a separately configured agent; its calls are not connected to the local role-play log or route planner.
 
+All Act screens now use the loaded Identify payload for the displayed forecast, ordering-day cadence, inactivity and account reasons. Missing Identify probabilities stay missing. Original Ritmo estimates are retained in the planning-input expander; rankings, lanes and routes remain supplied prototype proposals and are not recomputed from Identify. The account watchlist initially puts recently active accounts first; already inactive accounts remain available for reactivation review.
+
+Outreach distinguishes a cadence check, reactivation, activity within the usual gap and insufficient cadence history. A historical service note is a question to verify, not a confirmed current complaint. Marketplace category codes have consistent neutral portfolio aliases in offers and briefings; the source codes remain available in account details. These aliases do not claim a mapping to actual HEINEKEN products. Illustrative discounts/delivery terms require approval; interest in a demo offer does not book an order. Closed/seasonal and no-current-need responses do not play or propose a discount. Changing the role-play reason resets its offer response.
+
 - How customers are flagged and ranked, with real examples: [docs/part1_part2.md](docs/part1_part2.md)
 - Act code: `app/act_engine.py` (offers, briefings, call script, WhatsApp text), `app/act_views.py` (screens), `app/action_layer.py` (`recommended_action`)
 - Optional live voice agent: set `ELEVENLABS_AGENT_ID` as a Streamlit secret to show an ElevenLabs agent on the AI call screen.
@@ -118,7 +122,7 @@ Aggregate Identify reports are in `docs/results/`. Derived account-level challen
 python -m pytest -q
 ```
 
-Tests cover the Identify pipeline and UI, sparse-account Act handling, separation of fictional/challenge snapshots, morning briefings, route navigation, filters and call-role-play outcomes. Browser speech playback and the optional external ElevenLabs agent need separate manual verification.
+Tests cover the Identify pipeline and UI, sparse-account Act handling, separation of fictional/challenge snapshots, morning briefings, route navigation, filters and call-role-play outcomes. Recorded-demo regression cases check conflicting forecasts/cadence, dormant versus recently active accounts, portfolio offers, spoken branch text and stale acceptance state. Browser speech playback and the optional external ElevenLabs agent need separate manual verification.
 
 ## Public demo hosting
 

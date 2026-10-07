@@ -54,7 +54,8 @@ def test_morning_briefing_and_route_navigation(monkeypatch):
         assert {label.split(" · ")[1] for label in labels} == set(stops.account_id)
         assert app.selectbox(key="stop_pick").value in set(stops.account_id)
         assert "weekly route" in expected
-        assert "60-day risk estimate" in expected
+        assert "prototype export" in expected
+        assert "risk estimate" not in expected
 
 
 def test_morning_briefing_handles_single_stop():
@@ -62,7 +63,7 @@ def test_morning_briefing_handles_single_stop():
                            "value_at_risk": 100, "churn_chance_pct": 30}])
     text = morning_briefing_text(stops, "EX week 1")
     assert "A00123" in text
-    assert "1 priority visits" in text
+    assert "1 proposed visits" in text
     assert "Other accounts" not in text
 
 
