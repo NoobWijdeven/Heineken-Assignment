@@ -35,13 +35,17 @@ Account Compass now also does Part 2 (who to help first) and Part 3 (what to do)
 ## How his score and Ritmo fit together
 
 - **His score** says *how likely* a shop is to stop ordering. It covers the 2,611 accounts with 10+ orders and is shown on every card as "Account Compass 60-day forecast".
-- **Ritmo** adds *who to help first*: money spent last year × chance of going silent × chance it can still be won back. It also adds the plain-word reasons and the lane, for all 9,735 accounts with 3+ orders.
+- **Ritmo** adds *who to help first*: money spent last year × chance of going silent for 60 days × chance it can still be won back. It also adds the plain-word reasons and the lane, for all 9,735 accounts with 3+ orders.
 
-## In progress: switching everything to 60 days
+## Churn is now 60 days everywhere
 
-Zep decided that churn should be **60 days everywhere**, the same as Demian's score. The Ritmo scripts are being rerun with 60 days.
+Zep decided that churn means **60 days without an order**, the same window as Demian's score. The Ritmo scripts were rerun with 60 days, and `demo_data/ritmo/` holds the new files. The app and `docs/part1_part2.md` now say 60 days throughout.
 
-**Status: pending.** The Ritmo files in `demo_data/ritmo/` and the wording in the app and in `docs/part1_part2.md` still say 90 days. They will be replaced once the new files are ready, and this note will be updated then.
+What moved with the switch:
+- Niterói (the demo shop) is now **#17**, with a 24% chance of leaving. It's still on the Rio week 1 route.
+- Lanes: 150 rep visits, 850 AI calls, 7,016 WhatsApp messages, 6,973 to monitor.
+- Rep routes: São Paulo 43 visits, Minas Gerais 21, Rio de Janeiro 16, plus smaller states.
+- Dropping a core product is now 2 to 2.6x the risk (it was 3.5x with 90 days).
 
 ## Known test result
 

@@ -60,7 +60,7 @@ def _identify_line(accounts, account_id):
 def why_card(act, accounts, key, history=None):
     rec, offer = act["record"], act["offer"]
     st.markdown(f"{_lane_badge(act['lane'])} &nbsp; **Priority #{int(rec['rank']):,}** · "
-                f"{rec['churn_chance_pct']:.0f}% chance of going silent for 90 days · "
+                f"{rec['churn_chance_pct']:.0f}% chance of going silent for 60 days · "
                 f"value at stake {rec['value_at_risk']:,.0f}", unsafe_allow_html=True)
     st.caption(_identify_line(accounts, rec["account_id"]))
     a, b = st.columns([3, 2])
