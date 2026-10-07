@@ -1,5 +1,7 @@
 # Identify → Act handoff
 
+> **Update:** the Act prototype and morning audio briefing are integrated. See [CHANGES_FROM_DEMIAN.md](CHANGES_FROM_DEMIAN.md) for teammate additions and [part1_part2.md](part1_part2.md) for Ritmo's evidence status. Identify probabilities and imported Ritmo estimates remain separate. Calls, offers, message sending and feedback are simulations; the built-in role-play contacts no customer.
+
 ## Entry points
 
 Use `examples/scored_accounts.csv` during development. After running the pipeline, switch to `outputs/scored_accounts.csv`; column names remain the same. CSV contains exactly one row per account, with string IDs and schema version `1.0`. Do not infer the account ID or schema version as numeric.
@@ -80,6 +82,6 @@ For the selected recency model, review and delivery observations are supporting 
 
 ## Collaboration and delivery
 
-Work in `teammate/action-layer` from this implementation branch, changing `app/action_layer.py` and adding your modules. Coordinate any edits to `app/streamlit_app.py` or schema changes through a PR. Preserve original identifiers and contract fields. A schema change needs a version change, updated example fixtures, documentation and null-safe compatibility handling.
+Start a new feature branch from the integrated `main`. Coordinate edits to shared Streamlit modules and schema changes through a PR. Preserve original identifiers and contract fields. A schema change needs a version change, updated example fixtures, documentation and null-safe compatibility handling.
 
-For real analysis, obtain the eight assignment CSVs from the project owner and run the pipeline locally. All source CSVs and full real output tables are ignored in this public repository. Committed `docs/results` contains aggregate measured results; `examples` contains fabricated fixture data. The final public hosted link, 3-minute video, 1-page assignment summary and finished Prioritise/Act stages remain separate submission work.
+To regenerate Identify, obtain the eight assignment CSVs separately and run the pipeline locally. Raw source CSVs and local generated outputs remain ignored. Derived challenge snapshots are committed under `demo_data/`; `examples` contains fabricated Identify fixtures. Ritmo generation scripts and validation reports are not included, and regenerating Identify does not refresh those priority exports. Fictional or different-date snapshots are not paired with the bundled 2018-08-31 Act records. Public hosting, the 3-minute video, 1-page summary and reproducible Ritmo analysis remain submission work.

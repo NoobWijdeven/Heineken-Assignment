@@ -1,0 +1,284 @@
+{
+  "model_version": "identify-v1.0",
+  "schema_version": "1.0",
+  "analysis_date": "2018-08-31",
+  "selected_model": "recency_baseline",
+  "best_dev_pr_auc_model": "recency_baseline",
+  "target_definition": "inactivity_60d",
+  "prediction_horizon_days": 60,
+  "thresholds": {
+    "binary": 0.19937942103274897,
+    "medium": 0.18190300609059867,
+    "high": 0.3372404948627909
+  },
+  "random_seed": 42,
+  "holdout": {
+    "cutoff": "2018-06-30",
+    "split": "holdout",
+    "model": "recency_baseline",
+    "accounts": 2197,
+    "prevalence": 0.23441055985434683,
+    "roc_auc": 0.6888701615044504,
+    "pr_auc": 0.48670799068438325,
+    "precision": 0.34047350620067646,
+    "recall": 0.5864077669902913,
+    "f1": 0.43081312410841655,
+    "threshold": 0.19937942103274897,
+    "tn": 1097,
+    "fp": 585,
+    "fn": 213,
+    "tp": 302,
+    "brier": 0.15722262488986818,
+    "brier_prevalence_baseline": 0.17946224928311852,
+    "precision_at_100": 0.8,
+    "positives_at_100": 80,
+    "top100_value_proxy": 188692.58000000002,
+    "top_decile_lift": 2.6953486319505737,
+    "top_decile_positive_value_proxy": 245905.46999999997,
+    "calibration_ece": 0.03360519028533673
+  },
+  "holdout_cutoff": "2018-06-30",
+  "active_account_holdout": {
+    "current_activity": "Ordered within last 60 days",
+    "accounts": 1821,
+    "prevalence": 0.17682591982427237,
+    "roc_auc": 0.584365767654627,
+    "pr_auc": 0.22093228444005972,
+    "precision": 0.21330724070450097,
+    "recall": 0.3385093167701863,
+    "f1": 0.2617046818727491,
+    "threshold": 0.19937942103274897,
+    "tn": 1097,
+    "fp": 402,
+    "fn": 213,
+    "tp": 109,
+    "brier": 0.14475790469074357,
+    "brier_prevalence_baseline": 0.14555851390257235,
+    "precision_at_100": 0.31,
+    "positives_at_100": 31,
+    "top100_value_proxy": 193109.46,
+    "top_decile_lift": 1.5142551674982183,
+    "top_decile_positive_value_proxy": 86244.41000000002,
+    "calibration_ece": 0.02476234112176075
+  },
+  "validation_warning": "Overall top-risk accuracy includes already inactive accounts. Early-warning estimates for recently active accounts are exploratory.",
+  "data_kind": "challenge",
+  "source_sha256": {
+    "customers.csv": "a5cfa32b348cf9fb309b285f5f8e87a26d739c38e43513801aa2df4dc6615903",
+    "geolocation.csv": "1e4f4b8ad7da5dccde4d386946b93d8132e36c310f74ab0fe7bbad7ab4811078",
+    "order_items.csv": "5b4ca8e70ad625aac738a54ab0f6d1580dd174fb9b72dabb64f3378f55981772",
+    "order_lines.csv": "4be59adc17870f60cf53c6df4de48c726d2a2d39c86cb31cc6d1ebc169c16fec",
+    "order_payments.csv": "f484ac97e845dddb5d568b47a4381a53a60d00739296699578d51c8a8226cb1f",
+    "order_reviews.csv": "7460c359d2535566d6b6289eb6abdc03dbd41803e50f1e71ecc99ae83a7a17da",
+    "orders.csv": "9ffb807e7c6e8c49c30869bc7ee1075a49300ef07bf25d3c6d734abb45ca3945",
+    "products.csv": "71abc349777e5300f3799ec7fc740701672436f15a8968eac30ddb05817ea7b2"
+  },
+  "runtime": {
+    "python": "3.13.16",
+    "pandas": "3.0.5",
+    "numpy": "2.5.3",
+    "sklearn": "1.9.1"
+  },
+  "training_manifest": [
+    {
+      "decision_date": "2018-02-28",
+      "model": "recency_baseline",
+      "fit_snapshots": [
+        "2017-07-31",
+        "2017-08-31",
+        "2017-09-30"
+      ],
+      "calibration_snapshot": "2017-11-30",
+      "fit_rows": 506,
+      "calibration_rows": 618,
+      "fit_max_label_end": "2017-11-29 00:00:00",
+      "calibration_max_label_end": "2018-01-29 00:00:00",
+      "calibration_mode": "sigmoid"
+    },
+    {
+      "decision_date": "2018-02-28",
+      "model": "cadence_baseline",
+      "fit_snapshots": [
+        "2017-07-31",
+        "2017-08-31",
+        "2017-09-30"
+      ],
+      "calibration_snapshot": "2017-11-30",
+      "fit_rows": 506,
+      "calibration_rows": 618,
+      "fit_max_label_end": "2017-11-29 00:00:00",
+      "calibration_max_label_end": "2018-01-29 00:00:00",
+      "calibration_mode": "sigmoid"
+    },
+    {
+      "decision_date": "2018-02-28",
+      "model": "logistic",
+      "fit_snapshots": [
+        "2017-07-31",
+        "2017-08-31",
+        "2017-09-30"
+      ],
+      "calibration_snapshot": "2017-11-30",
+      "fit_rows": 506,
+      "calibration_rows": 618,
+      "fit_max_label_end": "2017-11-29 00:00:00",
+      "calibration_max_label_end": "2018-01-29 00:00:00",
+      "calibration_mode": "sigmoid"
+    },
+    {
+      "decision_date": "2018-02-28",
+      "model": "random_forest",
+      "fit_snapshots": [
+        "2017-07-31",
+        "2017-08-31",
+        "2017-09-30"
+      ],
+      "calibration_snapshot": "2017-11-30",
+      "fit_rows": 506,
+      "calibration_rows": 618,
+      "fit_max_label_end": "2017-11-29 00:00:00",
+      "calibration_max_label_end": "2018-01-29 00:00:00",
+      "calibration_mode": "sigmoid"
+    },
+    {
+      "decision_date": "2018-02-28",
+      "model": "gradient_boosting",
+      "fit_snapshots": [
+        "2017-07-31",
+        "2017-08-31",
+        "2017-09-30"
+      ],
+      "calibration_snapshot": "2017-11-30",
+      "fit_rows": 506,
+      "calibration_rows": 618,
+      "fit_max_label_end": "2017-11-29 00:00:00",
+      "calibration_max_label_end": "2018-01-29 00:00:00",
+      "calibration_mode": "sigmoid"
+    },
+    {
+      "decision_date": "2018-04-30",
+      "model": "recency_baseline",
+      "fit_snapshots": [
+        "2017-07-31",
+        "2017-08-31",
+        "2017-09-30",
+        "2017-10-31",
+        "2017-11-30"
+      ],
+      "calibration_snapshot": "2018-02-28",
+      "fit_rows": 1521,
+      "calibration_rows": 1256,
+      "fit_max_label_end": "2018-01-29 00:00:00",
+      "calibration_max_label_end": "2018-04-29 00:00:00",
+      "calibration_mode": "sigmoid"
+    },
+    {
+      "decision_date": "2018-04-30",
+      "model": "cadence_baseline",
+      "fit_snapshots": [
+        "2017-07-31",
+        "2017-08-31",
+        "2017-09-30",
+        "2017-10-31",
+        "2017-11-30"
+      ],
+      "calibration_snapshot": "2018-02-28",
+      "fit_rows": 1521,
+      "calibration_rows": 1256,
+      "fit_max_label_end": "2018-01-29 00:00:00",
+      "calibration_max_label_end": "2018-04-29 00:00:00",
+      "calibration_mode": "sigmoid"
+    },
+    {
+      "decision_date": "2018-04-30",
+      "model": "logistic",
+      "fit_snapshots": [
+        "2017-07-31",
+        "2017-08-31",
+        "2017-09-30",
+        "2017-10-31",
+        "2017-11-30"
+      ],
+      "calibration_snapshot": "2018-02-28",
+      "fit_rows": 1521,
+      "calibration_rows": 1256,
+      "fit_max_label_end": "2018-01-29 00:00:00",
+      "calibration_max_label_end": "2018-04-29 00:00:00",
+      "calibration_mode": "sigmoid"
+    },
+    {
+      "decision_date": "2018-04-30",
+      "model": "random_forest",
+      "fit_snapshots": [
+        "2017-07-31",
+        "2017-08-31",
+        "2017-09-30",
+        "2017-10-31",
+        "2017-11-30"
+      ],
+      "calibration_snapshot": "2018-02-28",
+      "fit_rows": 1521,
+      "calibration_rows": 1256,
+      "fit_max_label_end": "2018-01-29 00:00:00",
+      "calibration_max_label_end": "2018-04-29 00:00:00",
+      "calibration_mode": "sigmoid"
+    },
+    {
+      "decision_date": "2018-04-30",
+      "model": "gradient_boosting",
+      "fit_snapshots": [
+        "2017-07-31",
+        "2017-08-31",
+        "2017-09-30",
+        "2017-10-31",
+        "2017-11-30"
+      ],
+      "calibration_snapshot": "2018-02-28",
+      "fit_rows": 1521,
+      "calibration_rows": 1256,
+      "fit_max_label_end": "2018-01-29 00:00:00",
+      "calibration_max_label_end": "2018-04-29 00:00:00",
+      "calibration_mode": "sigmoid"
+    },
+    {
+      "decision_date": "2018-06-30",
+      "model": "recency_baseline",
+      "fit_snapshots": [
+        "2017-07-31",
+        "2017-08-31",
+        "2017-09-30",
+        "2017-10-31",
+        "2017-11-30",
+        "2017-12-31",
+        "2018-01-31",
+        "2018-02-28"
+      ],
+      "calibration_snapshot": "2018-04-30",
+      "fit_rows": 4583,
+      "calibration_rows": 1746,
+      "fit_max_label_end": "2018-04-29 00:00:00",
+      "calibration_max_label_end": "2018-06-29 00:00:00",
+      "calibration_mode": "sigmoid"
+    }
+  ],
+  "production_training": {
+    "fit_cutoffs": [
+      "2017-07-31",
+      "2017-08-31",
+      "2017-09-30",
+      "2017-10-31",
+      "2017-11-30",
+      "2017-12-31",
+      "2018-01-31",
+      "2018-02-28",
+      "2018-03-31",
+      "2018-04-30"
+    ],
+    "calibration_cutoff": "2018-06-30",
+    "fit_max_label_end": "2018-06-29 00:00:00",
+    "calibration_max_label_end": "2018-08-29 00:00:00",
+    "fit_rows": 7829,
+    "calibration_rows": 2197,
+    "calibration_mode": "sigmoid"
+  }
+}
