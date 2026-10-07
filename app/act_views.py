@@ -132,6 +132,56 @@ def _rep_week(prio, accounts, history):
     route = st.selectbox("This week's route", names, key="route_pick")
     stops = order_route(prio[prio.route == route])
     st.markdown(f"**{len(stops)} visits** in {route.split(' ')[0]} · value at stake {stops.value_at_risk.sum():,.0f}")
+
+    # Morning route briefing
+    top_stops = stops.sort_values("rank").head(3)
+
+    morning_parts = [
+    f"Good morning. You have {len(stops)} priority visits today in "
+    f"{route.split(' ')[0]}, representing approximately "
+    f"{stops.value_at_risk.sum():,.0f} in value at stake."
+]
+
+if not top_stops.empty:
+    first = top_stops.iloc[0]
+    morning_parts.append(
+        f"Your most important stop is account {first['account_id']} in "
+        f"{str(first['city']).title()}, ranked number {int(first['rank'])}. "
+        f"It has a {first['churn_chance_pct']:.0f} percent chance of going silent "
+        f"and {first['value_at_risk']:,.0f} in value at stake."
+    )
+
+if len(top_stops) > 1:
+    morning_parts.append(
+        "Other accounts to watch closely are "
+        + ", ".join(
+            f"{row.account_id} in {str(row.city).title()}"
+            for _, row in top_stops.iloc[1:].iterrows()
+        )
+        + "."
+    )
+
+morning_parts.append(
+    "Focus first on high-value accounts where ordering behaviour has clearly changed. "
+    "Before each visit, play the individual briefing for the key talking points "
+    "and recommended offer."
+)
+
+    morning_briefing = " ".join(morning_parts)
+
+    with st.container(border=True):
+        st.markdown("### 🎧 Morning Route Briefing")
+        st.write("Your quick spoken overview before starting today's route.")
+
+        speak_button(
+            morning_briefing,
+            key=f"morning{route.replace(' ', '')}",
+            label="▶ Play Morning Briefing"
+        )
+
+        with st.expander("Read morning briefing"):
+            st.write(morning_briefing)
+
     fig = go.Figure()
     fig.add_trace(go.Scattermap(lat=stops.lat, lon=stops.lng, mode="lines", line=dict(width=2, color="#173C2B"),
                                 hoverinfo="skip", showlegend=False))
