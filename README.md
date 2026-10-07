@@ -1,5 +1,13 @@
 # Account Compass — HEINEKEN × AISO Identify
 
+## Identify → Prioritise → Act (Ritmo)
+
+The app now opens on **Act: this week**: the rep's weekly visit route with spoken briefings, an AI call agent that asks *why* a shop slowed down, WhatsApp nudges for small accounts, and a chart of the reasons customers give. It runs on the real outputs in `demo_data/`, so `python -m streamlit run app/streamlit_app.py` works straight after `pip install -r requirements.txt`.
+
+- How customers are flagged and ranked, with real examples: [docs/part1_part2.md](docs/part1_part2.md)
+- Act code: `app/act_engine.py` (offers, briefings, call script, WhatsApp text), `app/act_views.py` (screens), `app/action_layer.py` (`recommended_action`)
+- Optional live voice agent: set `ELEVENLABS_AGENT_ID` as a Streamlit secret to show an ElevenLabs agent on the AI call screen.
+
 A reproducible account-risk pipeline and Streamlit dashboard for Part 1 of the student challenge. The eight supplied files were analysed; aggregate results are in [docs/results](docs/results). The underlying data is adapted marketplace data, **not HEINEKEN customer data**.
 
 The selected model forecasts **no placed order in the next 60 days**. It does not identify permanent churn or estimate the benefit of an intervention.

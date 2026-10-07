@@ -1,0 +1,151 @@
+state,visit_week,city,account_id,rank,orders,value_at_risk,reason_1,reason_2,talking_point,lat,lng
+AP,1,macapa,A68901,91,8,1377.9907136495528,Orders dropped from 2 to 0 per quarter,"Usually orders every 47 days, silent for 114",1-2 star review on the order of 22 Jan 2018,0.0335411401319673,-51.07000546471101
+BA,1,bom jesus da lapa,A47600,168,9,1239.3368437062911,Orders dropped from 1 to 0 per quarter,"Usually orders every 38 days, silent for 127",1-2 star review on the order of 11 Jan 2018,-13.252936490336603,-43.41361501446456
+BA,1,campo formoso,A44790,51,10,1476.0753966205623,"Usually orders every 20 days, silent for 90",Orders dropped from 3 to 1 per quarter,1-2 star review on the order of 28 May 2018,-10.508537399129107,-40.32008016329232
+BA,1,feira de santana,A44007,97,7,1169.539130131753,Ordering on its usual rhythm (every 44 days),,,-12.26251507641856,-38.98329396093864
+BA,1,feira de santana,A44077,181,8,923.1716963511334,Ordering on its usual rhythm (every 36 days),,,-12.261473580904834,-38.94004225320551
+BA,1,ilheus,A45658,84,9,1197.787187116494,"Usually orders every 16 days, silent for 44",,1-2 star review on the order of 01 Mar 2018,-14.780932482648977,-39.05757495518468
+BA,1,ipira,A44600,68,8,1251.3648067667548,Ordering on its usual rhythm (every 51 days),,1-2 star review on the order of 19 Jul 2017,-12.157556449733203,-39.740045315654505
+BA,1,lauro de freitas,A42738,88,8,1130.094213601236,Ordering on its usual rhythm (every 35 days),,1-2 star review on the order of 03 Jul 2018,-12.89472449617752,-38.33875838605659
+BA,1,luis eduardo magalhaes,A47850,153,30,975.1729611973204,"Usually orders every 11 days, silent for 27",Stopped buying furniture_decor (bought it in 4 different months),1-2 star review on the order of 16 Jul 2018,-12.08925543763249,-45.79618023024447
+BA,1,salvador,A41600,31,11,1472.4563623960746,"Usually orders every 27 days, silent for 54",,1-2 star review on the order of 02 Feb 2018,-12.9364724961253,-38.34055656438639
+BA,1,salvador,A41150,185,9,919.7122937360989,Ordering on its usual rhythm (every 53 days),,1-2 star review on the order of 18 Apr 2018,-12.961213874272016,-38.4704261606946
+BA,1,vitoria da conquista,A45000,47,8,1282.2912556281678,Spend down 60% vs the quarter before,,,-14.851664999999992,-40.84095111740432
+CE,1,fortaleza,A60310,74,6,1231.7724871208306,Ordering on its usual rhythm (every 83 days),,,-3.7150507718564265,-38.55024939286744
+CE,1,fortaleza,A60450,99,6,1297.8714739562586,"Usually orders every 45 days, silent for 89",,1-2 star review on the order of 03 Jun 2018,-3.737180509447705,-38.555539161618654
+CE,1,fortaleza,A60120,135,10,1261.5159402130582,"Usually orders every 17 days, silent for 115",Orders dropped from 2 to 0 per quarter,1-2 star review on the order of 17 Apr 2018,-3.7519084854290408,-38.50856775229382
+DF,1,brasilia,A72240,109,6,1275.8413877623998,No order for 74 days,,,-15.817093488778422,-48.126833753669246
+DF,1,brasilia,A71010,151,13,1205.551979839542,Orders dropped from 1 to 0 per quarter,"Usually orders every 16 days, silent for 91",1-2 star review on the order of 25 Nov 2017,-15.815328337961944,-47.98783770924069
+ES,1,linhares,A29902,33,7,1381.094464125156,Ordering on its usual rhythm (every 123 days),,1-2 star review on the order of 16 Mar 2018,-19.38104321863741,-40.063048580531
+GO,1,catalao,A75701,55,8,1616.5432653404357,"Usually orders every 9 days, silent for 193",,1-2 star review on the order of 12 Jan 2018,-18.16972792951116,-47.94635901554309
+GO,1,goiania,A74210,29,18,1537.979908156205,"Usually orders every 14 days, silent for 34",Stopped buying health_beauty (bought it in 3 different months),1-2 star review on the order of 12 Jul 2018,-16.69494644451846,-49.27709414677224
+GO,1,goiania,A74690,131,7,1266.6026285232629,Orders dropped from 3 to 0 per quarter,"Usually orders every 34 days, silent for 93",,-16.607770738484998,-49.25051814257287
+MA,1,codo,A65400,159,8,1137.89163072673,"Usually orders every 56 days, silent for 86",Spend down 56% vs the quarter before,1-2 star review on the order of 08 Nov 2017,-4.460313170917487,-43.88951140243549
+MA,1,imperatriz,A65900,94,7,1177.1952028947114,Ordering on its usual rhythm (every 56 days),,1-2 star review on the order of 19 Feb 2018,-5.522166198874023,-47.48730905974652
+MA,1,sao luis,A65077,19,10,1596.6448501867606,Spend down 93% vs the quarter before,Orders dropped from 3 to 1 per quarter,1-2 star review on the order of 22 May 2018,-2.4934580895131826,-44.30200938949155
+MG,1,andradas,A37795,56,12,1235.2685475217602,Ordering on its usual rhythm (every 12 days),,1-2 star review on the order of 03 Aug 2018,-22.07108854643692,-46.57233250425247
+MG,1,araujos,A35603,154,6,1198.9371498017038,Orders dropped from 2 to 0 per quarter,Spend down 100% vs the quarter before,1-2 star review on the order of 21 Jul 2017,-19.945575011569403,-45.16597931546578
+MG,1,belo horizonte,A31550,26,7,1918.867714438893,"Usually orders every 30 days, silent for 234",,1-2 star review on the order of 25 Nov 2017,-19.83944587357896,-43.98541615106176
+MG,1,belo horizonte,A31360,93,8,1458.3347818826892,"Usually orders every 8 days, silent for 195",,1-2 star review on the order of 13 Feb 2018,-19.8712996969242,-44.01013832194592
+MG,1,belo horizonte,A30690,106,8,1331.7721283561968,Orders dropped from 3 to 0 per quarter,"Usually orders every 37 days, silent for 100",1-2 star review on the order of 15 Mar 2018,-19.978320656125533,-44.0496731575105
+MG,1,belo horizonte,A30441,128,23,1101.1565486578804,"Usually orders every 10 days, silent for 43",Stopped buying computers_accessories (bought it in 4 different months),1-2 star review on the order of 19 Jul 2018,-19.93624791006412,-43.95773026201734
+MG,1,carmo do paranaiba,A38840,98,16,1163.139899064613,Stopped buying health_beauty (bought it in 3 different months),"Usually orders every 19 days, silent for 41",,-18.99991027863589,-46.31220123561797
+MG,1,carmopolis de minas,A35534,184,5,974.3961464697225,Only 5 orders in 12 months: a thin relationship,,,-20.540642399429228,-44.63537487047108
+MG,1,divinopolis,A35501,4,26,2350.2040838740304,Stopped buying sports_leisure (bought it in 4 different months),"Usually orders every 11 days, silent for 24",1-2 star review on the order of 08 May 2018,-20.16130630891767,-44.90380827522894
+MG,1,espinosa,A39510,65,6,1410.01710445147,No order for 81 days,,1-2 star review on the order of 15 Oct 2017,-14.923926125911253,-42.81367737336781
+MG,1,ipanema,A36950,16,7,1634.5024486383625,Spend down 87% vs the quarter before,,1-2 star review on the order of 27 Nov 2017,-19.80023738321712,-41.71471502051792
+MG,1,juiz de fora,A36033,147,8,1039.809997627842,Ordering on its usual rhythm (every 62 days),,,-21.78573329336661,-43.36316606279932
+MG,2,juiz de fora,A36048,162,5,1255.8537822686928,"Usually orders every 14 days, silent for 202",Only 5 orders in 17 months: a thin relationship,,-21.687647978617864,-43.34763948389983
+MG,2,nova lima,A34018,5,5,2333.1962937863086,Only 5 orders in 15 months: a thin relationship,Orders dropped from 2 to 1 per quarter,1-2 star review on the order of 08 Mar 2018,-20.16278946237062,-43.94740304840458
+MG,2,para de minas,A35660,120,21,1114.5662403865188,Stopped buying bed_bath_table (bought it in 3 different months),"Usually orders every 22 days, silent for 38",1-2 star review on the order of 07 Dec 2017,-19.858114249230724,-44.60968385645244
+MG,2,pouso alegre,A37556,50,6,1500.0299133514334,"Usually orders every 13 days, silent for 64",,1-2 star review on the order of 19 Jun 2018,-22.23956135842177,-45.86581489245452
+MG,2,salinas,A39560,75,18,1231.24928194172,"Usually orders every 12 days, silent for 43",,1-2 star review on the order of 26 Jan 2018,-16.16690142735075,-42.29265478337428
+MG,2,santa juliana,A38175,127,9,1043.1422675942217,Orders dropped from 2 to 1 per quarter,Spend down 73% vs the quarter before,1-2 star review on the order of 20 Apr 2018,-19.312166112307224,-47.5301437963199
+MG,2,santa luzia,A33170,80,7,1350.359340321795,Orders dropped from 2 to 1 per quarter,Spend down 94% vs the quarter before,1-2 star review on the order of 01 May 2018,-19.785948905899065,-43.90445149999994
+MG,2,timoteo,A35184,125,7,1045.2119323937673,Orders dropped from 2 to 1 per quarter,Spend down 89% vs the quarter before,,-19.53519163176631,-42.667787621620334
+MG,2,vicosa,A36570,117,32,1303.673482804364,"Usually orders every 7 days, silent for 93",Orders dropped from 2 to 0 per quarter,1-2 star review on the order of 10 Mar 2018,-20.75533341719481,-42.88055185516512
+MS,1,aparecida do taboado,A79570,53,5,1629.1961633394726,Orders dropped from 1 to 0 per quarter,"Usually orders every 24 days, silent for 178",1-2 star review on the order of 06 Mar 2018,-20.084496634250105,-51.10230003473335
+MS,1,campo grande,A79020,89,7,1129.8123219388017,Orders dropped from 2 to 1 per quarter,Spend down 98% vs the quarter before,,-20.458367340267788,-54.597323291299546
+MS,1,campo grande,A79034,124,5,1104.8041281417368,Only 5 orders in 13 months: a thin relationship,,1-2 star review on the order of 13 Jan 2018,-20.42040185554556,-54.56235579790578
+MT,1,alta floresta,A78580,62,12,1569.7128317192517,Orders dropped from 1 to 0 per quarter,"Usually orders every 21 days, silent for 139",,-9.883882913054276,-56.0846244203151
+MT,1,campo novo do parecis,A78360,69,16,1397.4898620935155,"Usually orders every 17 days, silent for 84",Stopped buying furniture_decor (bought it in 3 different months),1-2 star review on the order of 13 Nov 2017,-13.660248314229651,-57.88912259575866
+MT,1,comodoro,A78310,183,7,922.0606914353473,Ordering on its usual rhythm (every 47 days),,,-13.65699891718855,-59.78335479823106
+MT,1,nova xavantina,A78690,132,10,1087.0204063115555,"Usually orders every 18 days, silent for 35",,1-2 star review on the order of 09 Dec 2017,-14.66436528580766,-52.35516875300326
+PA,1,ananindeua,A67143,44,5,1589.804671859458,Orders dropped from 2 to 0 per quarter,Only 5 orders in 15 months: a thin relationship,Order of 09 May 2018 arrived 7 days late,-1.352870982970248,-48.39185700220565
+PA,1,belem,A66613,129,9,1091.7290244239384,Spend down 74% vs the quarter before,,1-2 star review on the order of 08 Apr 2018,-1.4143021610625788,-48.44500122170078
+PB,1,catole do rocha,A58884,8,6,1848.1897428924951,Ordering on its usual rhythm (every 76 days),,1-2 star review on the order of 23 Feb 2018,-6.343654697932321,-37.74648684780528
+PE,1,petrolina,A56310,165,7,1243.6488325301052,Orders dropped from 2 to 0 per quarter,"Usually orders every 43 days, silent for 155",1-2 star review on the order of 30 Jan 2018,-9.381310455032065,-40.53644015951588
+PE,1,recife,A50050,6,11,2371.578566829859,"Usually orders every 20 days, silent for 97",Orders dropped from 3 to 0 per quarter,1-2 star review on the order of 18 Feb 2017,-8.054481316261771,-34.88863951824975
+PE,1,recife,A52061,103,11,1084.8013623162974,Ordering on its usual rhythm (every 40 days),,1-2 star review on the order of 25 Jul 2018,-8.03274050652087,-34.92155369963419
+PR,1,arapongas,A86700,118,5,1250.8923448721307,Only 5 orders in 16 months: a thin relationship,No order for 61 days,1-2 star review on the order of 06 Feb 2018,-23.409504244050773,-51.43445079721367
+PR,1,curitiba,A80540,37,11,1753.7323643772759,"Usually orders every 36 days, silent for 144",Orders dropped from 3 to 0 per quarter,Order of 18 Mar 2018 arrived 1 days late,-25.406795584024778,-49.25942853605031
+PR,1,curitiba,A81870,61,10,1203.082775791309,Orders dropped from 2 to 1 per quarter,Spend down 98% vs the quarter before,1-2 star review on the order of 21 Jan 2018,-25.527475136418683,-49.28805852352398
+PR,1,curitiba,A80040,63,10,1198.6596149257362,"Usually orders every 16 days, silent for 25",,1-2 star review on the order of 06 Aug 2018,-25.41816813446838,-49.24809783762771
+PR,1,curitiba,A82810,134,14,1214.9550730040826,"Usually orders every 24 days, silent for 77",Orders dropped from 2 to 1 per quarter,1-2 star review on the order of 27 Feb 2018,-25.43727033166945,-49.211700622251776
+PR,1,curitiba,A81935,136,7,1075.513868668934,Ordering on its usual rhythm (every 66 days),,1-2 star review on the order of 29 Sep 2017,-25.554630110461417,-49.25353580270495
+PR,1,curitiba,A81280,161,10,1017.2117030293866,Spend down 94% vs the quarter before,Orders dropped from 3 to 1 per quarter,1-2 star review on the order of 08 Apr 2018,-25.44010403338956,-49.35158480404242
+PR,1,curitiba,A81610,173,6,988.2903706693271,Spend down 92% vs the quarter before,,1-2 star review on the order of 11 May 2018,-25.47849732001269,-49.24612488156978
+PR,1,laranjeiras do sul,A85301,130,7,1348.2480441947216,"Usually orders every 32 days, silent for 301",,1-2 star review on the order of 29 Sep 2017,-25.406665878440407,-52.4116721980017
+PR,1,londrina,A86065,79,6,1153.134703330569,Orders dropped from 2 to 1 per quarter,Spend down 58% vs the quarter before,,-23.303559165127893,-51.20314983625708
+PR,1,maringa,A87050,73,17,1379.1514534887992,"Usually orders every 12 days, silent for 73",Stopped buying sports_leisure (bought it in 3 different months),1-2 star review on the order of 15 Mar 2018,-23.42843316855792,-51.91774739994137
+PR,1,missal,A85890,52,7,1248.1167441752686,Ordering on its usual rhythm (every 54 days),,Order of 10 May 2018 arrived 5 days late,-25.09125837363345,-54.24465858348745
+PR,2,pinhais,A83331,100,7,1151.9593427050875,Spend down 90% vs the quarter before,Orders dropped from 3 to 2 per quarter,1-2 star review on the order of 15 Jul 2018,-25.441302425212005,-49.161850202752575
+PR,2,umuarama,A87502,163,10,1133.826297526438,Orders dropped from 2 to 1 per quarter,"Usually orders every 26 days, silent for 66",1-2 star review on the order of 24 Mar 2018,-23.75871798789573,-53.296661513474426
+RJ,1,niteroi,A24220,17,64,1605.3813156444771,Stopped buying sports_leisure (bought it in 7 different months),"Usually orders every 7 days, silent for 26",1-2 star review on the order of 09 May 2018,-22.90316625284208,-43.10713068500763
+RJ,1,nova friburgo,A28630,15,10,2234.5544215465934,Orders dropped from 1 to 0 per quarter,"Usually orders every 38 days, silent for 159",1-2 star review on the order of 25 Mar 2018,-22.248090607447285,-42.5363431175754
+RJ,1,nova iguacu,A26298,101,5,1085.6407899999108,Only 5 orders in 12 months: a thin relationship,,,-22.82990052499997,-43.60632090750066
+RJ,1,paty do alferes,A26950,179,13,1207.9116549155794,"Usually orders every 15 days, silent for 151",Orders dropped from 2 to 0 per quarter,1-2 star review on the order of 02 Apr 2018,-22.42605933738185,-43.42262438050091
+RJ,1,rio bonito,A28800,126,17,1365.4034185704154,"Usually orders every 22 days, silent for 219",,Order of 14 Nov 2017 arrived 8 days late,-22.71104562596596,-42.62882877464098
+RJ,1,rio de janeiro,A20080,1,7,7600.372593478587,Orders dropped from 2 to 0 per quarter,Spend down 100% vs the quarter before,1-2 star review on the order of 29 Sep 2017,-22.901058733827725,-43.185554918748906
+RJ,1,rio de janeiro,A20540,24,38,1966.982714652548,"Usually orders every 7 days, silent for 210",Stopped buying toys (bought it in 5 different months),1-2 star review on the order of 24 Nov 2017,-22.92258733473174,-43.24244568124239
+RJ,1,rio de janeiro,A20031,66,16,1558.9608554440192,"Usually orders every 8 days, silent for 238",Stopped buying sports_leisure (bought it in 3 different months),1-2 star review on the order of 05 Jan 2018,-22.909623653615373,-43.17677364461301
+RJ,1,rio de janeiro,A22410,114,19,1398.0124581445052,"Usually orders every 7 days, silent for 257",Stopped buying sports_leisure (bought it in 5 different months),1-2 star review on the order of 04 Dec 2017,-22.984120204830045,-43.20837199952438
+RJ,1,rio de janeiro,A23097,116,9,1065.9010829408403,Orders dropped from 2 to 1 per quarter,Spend down 62% vs the quarter before,1-2 star review on the order of 03 May 2018,-22.851867693477,-43.5356341102641
+RJ,1,rio de janeiro,A23050,121,17,1052.746586973526,Ordering on its usual rhythm (every 24 days),,1-2 star review on the order of 18 Dec 2017,-22.90584639800333,-43.56728365029714
+RJ,1,rio de janeiro,A22765,150,20,982.5103511328628,Orders dropped from 2 to 1 per quarter,Stopped buying bed_bath_table (bought it in 3 different months),1-2 star review on the order of 17 Feb 2018,-22.95594624206276,-43.34707943005944
+RJ,2,rio de janeiro,A20081,156,15,971.0553862777583,Spend down 93% vs the quarter before,,1-2 star review on the order of 09 Nov 2017,-22.897514536211027,-43.184015450040405
+RJ,2,rio de janeiro,A21381,167,8,1239.9859673331212,Orders dropped from 1 to 0 per quarter,"Usually orders every 41 days, silent for 174",1-2 star review on the order of 09 Dec 2017,-22.87886160115994,-43.31554198185101
+RJ,2,rio de janeiro,A20221,169,5,1237.0917778954342,Orders dropped from 1 to 0 per quarter,"Usually orders every 30 days, silent for 175",1-2 star review on the order of 23 Jan 2018,-22.89903798723239,-43.19099682001268
+RJ,2,rio de janeiro,A23033,180,8,976.2450258982892,Orders dropped from 2 to 1 per quarter,"Usually orders every 28 days, silent for 60",1-2 star review on the order of 27 Feb 2018,-22.95672320399392,-43.60495639532564
+RN,1,natal,A59020,92,10,1377.0464435573542,Orders dropped from 2 to 0 per quarter,"Usually orders every 19 days, silent for 118",1-2 star review on the order of 05 May 2018,-5.790981405764958,-35.20214733888282
+RO,1,porto velho,A76821,140,7,999.7434383476758,Ordering on its usual rhythm (every 39 days),,1-2 star review on the order of 13 Dec 2017,-8.736170472807165,-63.8785628959824
+RS,1,cachoeira do sul,A96508,40,11,1398.8699738918474,Spend down 81% vs the quarter before,Orders dropped from 3 to 1 per quarter,1-2 star review on the order of 31 May 2018,-30.04650707996925,-52.89195744299842
+RS,1,caxias do sul,A95012,12,8,1824.256831547242,Stopped buying computers_accessories (bought it in 4 different months),,1-2 star review on the order of 10 Aug 2018,-29.173029573086687,-51.21014596899224
+RS,1,caxias do sul,A95080,46,8,1523.238112028399,Orders dropped from 2 to 1 per quarter,"Usually orders every 31 days, silent for 77",1-2 star review on the order of 03 Feb 2018,-29.17302670636451,-51.18277437971016
+RS,1,lajeado,A95905,170,5,944.5519973044633,Only 5 orders in 9 months: a thin relationship,,,-29.450847959017025,-51.98614267684301
+RS,1,rio grande,A96211,36,13,1780.5253495020402,"Usually orders every 16 days, silent for 207",,1-2 star review on the order of 18 Nov 2017,-32.04026630648149,-52.1155097159392
+RS,1,santa cruz do sul,A96810,137,20,1073.025321320789,"Usually orders every 14 days, silent for 39",Spend down 91% vs the quarter before,1-2 star review on the order of 24 Apr 2018,-29.717175968713285,-52.429568373086376
+RS,1,taquara,A95600,77,9,1512.5588352146249,"Usually orders every 16 days, silent for 206",,1-2 star review on the order of 06 Feb 2018,-29.648827519014347,-50.78205392042235
+SC,1,balneario camboriu,A88332,35,5,1362.1110931885562,Only 5 orders in 12 months: a thin relationship,,Order of 02 Sep 2017 arrived 1 days late,-27.01390272093021,-48.60555448471567
+SC,1,blumenau,A89027,122,6,1240.3087442850851,No order for 73 days,,,-26.99504394421202,-49.085352
+SC,1,joacaba,A89600,83,26,1395.8098558471345,"Usually orders every 10 days, silent for 102",Stopped buying toys (bought it in 3 different months),1-2 star review on the order of 27 Feb 2018,-27.172563180968265,-51.50738060224988
+SC,1,navegantes,A88370,95,18,1175.0362456884855,"Usually orders every 14 days, silent for 58",Stopped buying watches_gifts (bought it in 3 different months),1-2 star review on the order of 29 Mar 2018,-26.89059349827484,-48.65193750938463
+SC,1,porto uniao,A89400,178,14,980.2030898627246,Ordering on its usual rhythm (every 33 days),,,-26.25036248652128,-51.08184044585502
+SC,1,sao jose,A88113,176,12,1143.0870881884557,"Usually orders every 15 days, silent for 116",Spend down 100% vs the quarter before,1-2 star review on the order of 31 Mar 2018,-27.55704718219067,-48.63068939307693
+SC,1,taio,A89190,43,15,1713.9457215879404,"Usually orders every 26 days, silent for 122",Spend down 100% vs the quarter before,1-2 star review on the order of 21 Jan 2018,-27.117194300062263,-49.999117805390846
+SC,1,tubarao,A88701,32,20,1387.7975271945074,Stopped buying sports_leisure (bought it in 4 different months),Spend down 82% vs the quarter before,1-2 star review on the order of 25 Oct 2017,-28.48526750806341,-49.00875085463673
+SE,1,aracaju,A49020,139,13,1057.8170108256104,"Usually orders every 31 days, silent for 48",,1-2 star review on the order of 24 Nov 2017,-10.930554081164722,-37.05186855839938
+SP,1,alvares machado,A19160,21,8,1633.2905169963253,Spend down 98% vs the quarter before,Orders dropped from 3 to 1 per quarter,,-22.07701685844888,-51.47391872233956
+SP,1,bauru,A17017,13,7,2302.7310852222654,"Usually orders every 20 days, silent for 340",,1-2 star review on the order of 04 Sep 2017,-22.34722634535156,-49.06055597073071
+SP,1,birigui,A16201,133,11,1028.5053784710385,Ordering on its usual rhythm (every 50 days),,1-2 star review on the order of 13 Jun 2017,-21.27537241391624,-50.33255050652044
+SP,1,botucatu,A18603,38,8,1743.00465207748,"Usually orders every 20 days, silent for 275",,1-2 star review on the order of 29 Nov 2017,-22.88227354722589,-48.44976202553522
+SP,1,botucatu,A18607,54,7,1466.7746063046839,"Usually orders every 36 days, silent for 88",,1-2 star review on the order of 02 Nov 2017,-22.889780348365456,-48.461993393199286
+SP,1,braganca paulista,A12914,110,6,1409.9278036653025,"Usually orders every 28 days, silent for 253",,1-2 star review on the order of 21 Dec 2017,-22.964435507357585,-46.53509019666396
+SP,1,braganca paulista,A12910,158,8,964.4621043379203,"Usually orders every 13 days, silent for 20",Spend down 53% vs the quarter before,1-2 star review on the order of 03 Aug 2018,-22.94050678870687,-46.53091734256196
+SP,1,campinas,A13100,177,8,1213.7386032277634,"Usually orders every 7 days, silent for 216",,,-22.914275055434835,-47.03957069095158
+SP,1,catanduva,A15806,71,7,1535.0413229146357,"Usually orders every 24 days, silent for 231",,1-2 star review on the order of 12 Jan 2018,-21.132950799194987,-48.95897914432453
+SP,1,embu,A06823,78,14,1154.0738727763583,Ordering on its usual rhythm (every 25 days),,1-2 star review on the order of 15 Dec 2017,-23.669919328035405,-46.802391524496485
+SP,1,ferraz de vasconcelos,A08543,45,7,1292.3322836637933,Ordering on its usual rhythm (every 50 days),,1-2 star review on the order of 08 Nov 2017,-23.52503767055225,-46.37064935334179
+SP,1,ferraz de vasconcelos,A08526,123,8,1045.4658308218918,Spend down 97% vs the quarter before,Orders dropped from 4 to 1 per quarter,1-2 star review on the order of 03 Dec 2017,-23.556273212880125,-46.382393978114976
+SP,2,guaruja,A11454,22,6,1620.222706543623,Ordering on its usual rhythm (every 48 days),,1-2 star review on the order of 16 Nov 2017,-23.946648988317527,-46.28115348009047
+SP,2,indaiatuba,A13348,87,34,1477.8778075260125,"Usually orders every 10 days, silent for 184",Stopped buying sports_leisure (bought it in 6 different months),1-2 star review on the order of 28 Feb 2018,-23.11980850582838,-47.23840103788447
+SP,2,itapetininga,A18207,155,8,973.4946079110048,Spend down 68% vs the quarter before,Orders dropped from 3 to 1 per quarter,1-2 star review on the order of 17 Mar 2018,-23.60178256271525,-48.06461474961955
+SP,2,jaboticabal,A14870,138,14,1309.7315683886557,"Usually orders every 15 days, silent for 191",,1-2 star review on the order of 21 Feb 2018,-21.256797694428947,-48.32085073900775
+SP,2,jaguariuna,A13820,41,35,1627.2943344962928,Orders dropped from 1 to 0 per quarter,"Usually orders every 9 days, silent for 103",1-2 star review on the order of 28 Nov 2017,-22.69515790939998,-46.98701437649317
+SP,2,mairipora,A07600,60,52,1582.809102475267,"Usually orders every 7 days, silent for 155",Stopped buying bed_bath_table (bought it in 6 different months),1-2 star review on the order of 19 May 2017,-23.322352248071105,-46.58973137816835
+SP,2,martinopolis,A19500,59,8,1283.7970067024567,Spend down 91% vs the quarter before,Orders dropped from 3 to 2 per quarter,1-2 star review on the order of 19 Jul 2018,-22.149698145529893,-51.1718395743982
+SP,2,praia grande,A11713,148,13,1038.7761339973995,Stopped buying auto (bought it in 3 different months),"Usually orders every 17 days, silent for 33",1-2 star review on the order of 20 Jul 2018,-24.030355622888592,-46.52275102013688
+SP,2,presidente prudente,A19023,25,8,1482.2946687960468,Spend down 97% vs the quarter before,Orders dropped from 4 to 1 per quarter,1-2 star review on the order of 10 May 2018,-22.111362492566023,-51.39854839493498
+SP,2,presidente prudente,A19013,81,11,1142.6725413389845,Spend down 87% vs the quarter before,Orders dropped from 3 to 1 per quarter,1-2 star review on the order of 16 May 2018,-22.13506586164283,-51.39233422403981
+SP,2,quata,A19780,175,13,931.7647815733969,Stopped buying computers_accessories (bought it in 3 different months),Spend down 92% vs the quarter before,,-22.245953997538347,-50.700544630062254
+SP,2,rancharia,A19600,164,14,1247.3236288752532,"Usually orders every 13 days, silent for 172",Orders dropped from 1 to 0 per quarter,1-2 star review on the order of 12 Mar 2018,-22.22993501262289,-50.89381440529928
+SP,3,santana de parnaiba,A06539,119,6,1115.9609521673692,Ordering on its usual rhythm (every 23 days),,1-2 star review on the order of 09 May 2018,-23.464964013224613,-46.88075290768879
+SP,3,sao joao da boa vista,A13871,149,10,1038.758424441986,"Usually orders every 15 days, silent for 31",,Order of 10 Sep 2017 arrived 3 days late,-21.979694045133503,-46.80038664618571
+SP,3,sao jose do rio preto,A15063,14,5,1722.1782375959183,Only 5 orders in 18 months: a thin relationship,,,-20.81444567523064,-49.33921252018795
+SP,3,sao paulo,A03813,10,5,2395.5410779876647,"Usually orders every 12 days, silent for 276",Only 5 orders in 17 months: a thin relationship,,-23.488166129047897,-46.46938132278263
+SP,3,sao paulo,A05763,30,10,1482.633405618854,"Usually orders every 18 days, silent for 42",,1-2 star review on the order of 07 Jun 2018,-23.6437446307084,-46.75975796382578
+SP,3,sao paulo,A05358,39,5,1328.0190857925215,Only 5 orders in 19 months: a thin relationship,,,-23.57173309519407,-46.74984525000001
+SP,3,sao paulo,A01216,42,5,1614.0335052475778,"Usually orders every 28 days, silent for 120",Only 5 orders in 18 months: a thin relationship,1-2 star review on the order of 17 Mar 2017,-23.53362173189448,-46.64767750916093
+SP,3,sao paulo,A03335,48,7,1509.1861658783228,Orders dropped from 2 to 1 per quarter,Spend down 95% vs the quarter before,,-23.554809958508848,-46.56906605633623
+SP,3,sao paulo,A03029,70,5,1182.062037856979,Only 5 orders in 16 months: a thin relationship,,1-2 star review on the order of 22 Feb 2018,-23.529755043568628,-46.61758376741302
+SP,3,sao paulo,A01258,82,10,1138.2944862746756,Ordering on its usual rhythm (every 23 days),,1-2 star review on the order of 05 Jan 2018,-23.544731000836723,-46.68676936635128
+SP,3,sao paulo,A04376,85,6,1132.8728175453366,Ordering on its usual rhythm (every 88 days),,,-23.65409022065608,-46.65517827560733
+SP,3,sao paulo,A01020,104,6,1417.1659833007177,Orders dropped from 3 to 0 per quarter,"Usually orders every 50 days, silent for 140",,-23.552494470713864,-46.62960898251487
+SP,4,sao paulo,A05386,111,8,1271.4587673621816,Orders dropped from 2 to 1 per quarter,No order for 75 days,1-2 star review on the order of 15 Jan 2018,-23.564850747157923,-46.75924564863176
+SP,4,sao paulo,A04711,113,7,1071.669518817433,Ordering on its usual rhythm (every 38 days),,,-23.62702666610885,-46.70136409686078
+SP,4,sao paulo,A04165,146,7,1211.6320026158223,Orders dropped from 3 to 0 per quarter,"Usually orders every 46 days, silent for 101",1-2 star review on the order of 22 May 2018,-23.62567481042913,-46.60674984706196
+SP,4,sao paulo,A04739,160,6,962.8652324324883,Spend down 96% vs the quarter before,,1-2 star review on the order of 14 Apr 2018,-23.64545801610016,-46.70007520249481
+SP,4,sao paulo,A04675,174,14,1219.3055082436604,Orders dropped from 1 to 0 per quarter,"Usually orders every 12 days, silent for 146",Order of 25 Jan 2018 arrived 4 days late,-23.66302825867045,-46.68945333243405
+SP,4,sao paulo,A05404,187,7,970.3608972849183,"Usually orders every 18 days, silent for 38",Spend down 75% vs the quarter before,1-2 star review on the order of 25 Mar 2018,-23.564107990839062,-46.68417873001902
+SP,4,sorocaba,A18044,172,9,1105.4799382198867,"Usually orders every 20 days, silent for 64",,,-23.510414640025367,-47.47755500499165
+TO,1,palmas,A77022,64,8,1264.2054773368754,"Usually orders every 37 days, silent for 57",,1-2 star review on the order of 13 Oct 2017,-10.225144693416702,-48.3227514387811
