@@ -12,6 +12,7 @@ sys.path.insert(0, str(ROOT))
 from app.data_access import read_outputs, filter_accounts, selected_account_payload
 from app.action_layer import recommended_action
 from app.act_views import action_card, render_act_tab
+from app.act_engine import pretty
 
 st.set_page_config(page_title="Account Compass · Identify & Act", page_icon="🧭", layout="wide")
 st.markdown("""
@@ -59,6 +60,9 @@ except (ValueError, KeyError, OSError) as error:
     st.error(f"Could not load account outputs: {error}")
     st.stop()
 synthetic = metadata.get("data_kind") == "synthetic" or accounts.data_kind.eq("synthetic").all()
+if accounts.empty:
+    st.error("The scored-account file contains no accounts. Choose a populated output folder.")
+    st.stop()
 
 st.markdown('<div class="eyebrow">HEINEKEN × AISO · IDENTIFY · PRIORITISE · ACT</div>', unsafe_allow_html=True)
 st.markdown('<div class="hero"><h1>Account Compass</h1><p>Spot changing account behaviour, see who to save first, and act: rep visit, AI call or WhatsApp.</p></div>', unsafe_allow_html=True)
@@ -91,7 +95,7 @@ c1, c2, c3, c4, c5 = st.columns(5)
 c1.metric("Accounts in view", f"{len(filtered):,}")
 c2.metric("High risk", f"{filtered.risk_level.eq('High').sum():,}")
 c3.metric("Medium risk", f"{filtered.risk_level.eq('Medium').sum():,}")
-c4.metric("High-risk value", f"{filtered.loc[filtered.risk_level.eq('High'), 'historical_spend'].sum():,.0f}")
+c4.metric("High-risk historical value", f"{filtered.loc[filtered.risk_level.eq('High'), 'historical_spend'].sum():,.0f}")
 c5.metric("Evidence score", f"{filtered.evidence_confidence_score.mean():.2f}" if len(filtered) else "—")
 st.caption(f"{filtered.model_eligible.sum():,} accounts in view have modelled probabilities; {len(filtered) - filtered.model_eligible.sum():,} have insufficient established history. Evidence score is a heuristic from 0 to 1.")
 
@@ -100,9 +104,14 @@ with act_tab:
     render_act_tab(filtered, history, synthetic=synthetic)
 with work_tab:
     st.subheader("Account watchlist")
-    sort_by = st.selectbox("Sort by", ["Highest risk", "Highest historical value", "Longest inactivity"], key="sort")
-    sortcol = {"Highest risk": "risk_probability", "Highest historical value": "historical_spend", "Longest inactivity": "days_since_last_order"}[sort_by]
-    view = filtered.sort_values([sortcol, "account_id"], ascending=[False, True], na_position="last")
+    sort_by = st.selectbox("Sort by", ["Early warning (recently active first)", "Highest risk", "Highest historical value", "Longest inactivity"], key="sort")
+    if sort_by == "Early warning (recently active first)":
+        view = filtered.assign(_already_inactive=filtered.days_since_last_order.gt(60)).sort_values(
+            ["_already_inactive", "risk_probability", "account_id"], ascending=[True, False, True], na_position="last").drop(columns="_already_inactive")
+        st.caption("Recently active accounts appear first, ranked by forecast risk. Already inactive accounts remain below for reactivation review.")
+    else:
+        sortcol = {"Highest risk": "risk_probability", "Highest historical value": "historical_spend", "Longest inactivity": "days_since_last_order"}[sort_by]
+        view = filtered.sort_values([sortcol, "account_id"], ascending=[False, True], na_position="last")
     display = view[["account_id", "city", "state", "risk_level", "risk_score", "model_confidence",
                     "current_activity",
                     "historical_spend", "historical_order_count", "days_since_last_order", "cadence_ratio",
@@ -176,7 +185,7 @@ with work_tab:
                      "Observed late-delivery rate": row.late_delivery_rate}
             st.dataframe(pd.DataFrame({"Fact": facts.keys(), "Value": [str(v) if pd.notna(v) else "Unavailable" for v in facts.values()]}), hide_index=True, width="stretch")
             categories = json.loads(row.categories_dropped)
-            st.write("Repeat categories absent recently: " + (", ".join(categories) if categories else "None identified"))
+            st.write("Repeat portfolio lines absent recently: " + (pretty(", ".join(categories)) if categories else "None identified"))
             st.caption("Category names stand for portfolio lines in this adapted dataset. 'Absent' means ≥2 distinct orders in the previous 90 days and none in the current 90 days; it is a descriptive rule, not validated causal churn evidence.")
         st.markdown("#### Recommended action")
         payload = selected_account_payload(row)
