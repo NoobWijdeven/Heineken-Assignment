@@ -17,11 +17,11 @@ LANES = {
     "A: Rep visit": {"short": "Rep visit", "icon": "🚗", "colour": "#00834D",
                      "why": "A regular worth a lot that is fading: worth a rep's time this week."},
     "B: AI call": {"short": "AI call", "icon": "📞", "colour": "#2F6FB3",
-                   "why": "Too many accounts like this for reps to visit. The AI agent calls, asks why and hands warm or unhappy ones to the rep."},
+                   "why": "Proposed AI call: ask what changed and request rep follow-up when appropriate."},
     "C: WhatsApp nudge": {"short": "WhatsApp nudge", "icon": "💬", "colour": "#C77700",
-                          "why": "Small or new account. A friendly automatic WhatsApp with an offer, replies are logged."},
+                          "why": "Proposed WhatsApp draft for a small or new account. Sending and replies are simulated."},
     "Monitor": {"short": "Monitor", "icon": "👁", "colour": "#7A857E",
-                "why": "Ordering on rhythm or low value at stake. No action this week; Ritmo keeps watching."},
+                "why": "No contact scheduled in this exported priority list. Review the account evidence before acting."},
 }
 
 REASON_OPTIONS = ["Price", "Switched to a competitor", "Closed or quiet season", "Delivery or service problem",
@@ -38,6 +38,8 @@ def load_priority():
     if not path.exists():
         return pd.DataFrame()
     df = pd.read_csv(path, dtype={"account_id": str})
+    if not df.account_id.is_unique:
+        raise ValueError("Ritmo priority records must have unique account IDs")
     for col in ["why_now", "reason_1", "reason_2", "reason_3", "talking_point", "dropped_category", "top_categories", "route"]:
         df[col] = df[col].fillna("")
     return df.set_index("account_id", drop=False)
@@ -72,13 +74,17 @@ def build_offer(rec):
 
 
 def _reasons(rec):
-    return [r for r in (rec.get("reason_1"), rec.get("reason_2"), rec.get("reason_3")) if r]
+    reasons = [r for r in (rec.get("reason_1"), rec.get("reason_2"), rec.get("reason_3")) if r]
+    if not reasons and pd.isna(rec.get("rank")):
+        reasons = [f"{int(rec['orders'])} historical orders; no modelled risk or priority"]
+    return reasons
 
 
 def briefing_text(rec, offer):
     """About 30 seconds when read aloud, for the rep in the car."""
     city = str(rec.get("city", "")).title()
-    lines = [f"Next stop: {city}, account {rec['account_id']}, number {int(rec['rank'])} on this week's list."]
+    ranking = f"number {int(rec['rank'])} on this week's list" if pd.notna(rec.get("rank")) else "without a modelled priority rank"
+    lines = [f"Account {rec['account_id']} in {city}, {ranking}."]
     reasons = _reasons(rec)
     if reasons:
         lines.append("What changed: " + "; ".join(reasons[:3]) + ".")
@@ -91,7 +97,7 @@ def briefing_text(rec, offer):
 def call_script(rec, offer):
     days = int(rec.get("days_since_last_order") or 0)
     gap = rec.get("typical_gap_days")
-    rhythm = f"you usually order about every {int(gap)} days" if gap and not math.isnan(gap) else "you used to order regularly"
+    rhythm = f"you usually order about every {int(gap)} days" if gap and not math.isnan(gap) else "we are checking whether you need to restock"
     dropped = pretty(rec.get("dropped_category"))
     opener = (f"Hi, this is Ana, the HEINEKEN assistant. I'm calling because {rhythm}, "
               f"and it's been {days} days since your last order. Is everything okay?")
@@ -115,6 +121,11 @@ def whatsapp_text(rec, offer):
 
 def plan(account):
     """Full Act plan for one Identify payload, or None when Ritmo has no record."""
+    # Bundled Ritmo exports belong to the challenge snapshot, never fictional accounts.
+    if account.get("data_kind") == "synthetic":
+        return None
+    if account.get("analysis_date", "2018-08-31") != "2018-08-31":
+        return None
     rec = ritmo_record(account.get("account_id"))
     if rec is None:
         return None
@@ -126,7 +137,7 @@ def plan(account):
 
 
 def order_route(stops):
-    """Greedy nearest-neighbour order so the map shows a drivable sequence."""
+    """Illustrative nearest-neighbour sequence; does not estimate road travel."""
     stops = stops.dropna(subset=["lat", "lng"]).copy()
     if stops.empty:
         return stops
@@ -140,3 +151,22 @@ def order_route(stops):
     out = pd.DataFrame(route)
     out.insert(0, "stop", range(1, len(out) + 1))
     return out
+
+
+def morning_briefing_text(stops, route):
+    """Daniel's spoken route overview, describing the selected weekly plan."""
+    top_stops = stops.sort_values("rank").head(3)
+    parts = [f"Good morning. Your selected weekly route has {len(stops)} priority visits in "
+             f"{route.split(' ')[0]}, representing approximately {stops.value_at_risk.sum():,.0f} "
+             "in estimated value at stake."]
+    if not top_stops.empty:
+        first = top_stops.iloc[0]
+        parts.append(f"Your highest-priority account is {first['account_id']} in "
+                     f"{str(first['city']).title()}, ranked number {int(first['rank'])}. "
+                     f"Its supplied Ritmo 60-day risk estimate is {first['churn_chance_pct']:.0f} percent.")
+    if len(top_stops) > 1:
+        parts.append("Other accounts to watch closely are " + ", ".join(
+            f"{row.account_id} in {str(row.city).title()}" for _, row in top_stops.iloc[1:].iterrows()) + ".")
+    parts.append("Review high-value accounts where ordering behaviour has changed. "
+                 "Before each visit, play the individual briefing for the talking points and proposed offer.")
+    return " ".join(parts)

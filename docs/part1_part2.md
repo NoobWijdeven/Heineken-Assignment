@@ -2,33 +2,37 @@
 
 ## Part 1 (Identify): which customers are about to leave?
 
-- **When is a customer gone?** When they haven't ordered for **60 days**, the same window as the Account Compass forecast. Regular customers order about every 3 weeks (median 22 days), so that's about 3 missed orders. Of shops already silent for 60 to 90 days, about 1 in 4 never come back within half a year.
-- **Customers with only 1 or 2 orders** have no habit yet, so we don't score them. They get a WhatsApp message.
+**Evidence status:** this page describes the supplied Ritmo prototype exports, which use a separate model from Account Compass. Ritmo's generation scripts, held-out predictions and validation reports are not in this repository. Reported results below remain unverified until those materials are added. Reproducible Account Compass results are documented in [METHODOLOGY.md](METHODOLOGY.md) and [results/model_summary.md](results/model_summary.md).
+
+- **Target:** no order in the next **60 days**. This is future inactivity, not confirmed permanent loss. Current inactivity is shown separately. Ritmo's reported median gap of 22 days and roughly 25% non-return within six months require supporting cohort definitions and validation outputs.
+- **Customers with only 1 or 2 orders** receive no modelled Ritmo probability or priority rank. The supplied exports assign some to WhatsApp drafts and others to Monitor. Sparse accounts remain visible without interpreting missing risk as zero.
 - **Who is scored:** every customer with 3+ orders (9,735), using their order history up to 31 Aug 2018.
 - **Warning signs we found:**
   - ordering less often than the quarter before
   - being quiet for longer than their own normal rhythm
   - spending less than the quarter before
-  - stopping a product they always bought, which is the strongest sign (2 to 2.6x more risk)
+  - stopping a frequently purchased product line (Ritmo reports 2 to 2.6x risk; supporting analysis is pending)
   - having only a few orders in total (a "thin relationship")
-- A model that learned from past data combines these signs into a **chance of leaving in the next 60 days**. Each customer also gets the signs that apply to them, written in plain words.
-- **Surprise:** late deliveries and bad reviews do **not** make customers leave. We use them only as something for the rep to talk about.
-- **Does it work?** Tested on past data: for customers who are still ordering, our score is much better at spotting who will leave than "days since last order" (0.74 vs 0.58, where 0.5 is guessing).
+- Ritmo supplies a separate **60-day risk estimate** and plain-language observations. Its training, calibration and temporal leakage checks cannot be reproduced here yet.
+- Delivery and review observations can inform a conversation. The existing Identify analysis does not establish whether either causes inactivity.
+- **Reported performance, unverified:** Ritmo reports ROC-AUC 0.74 versus a recency baseline of 0.58 for still-ordering accounts. Matching population, horizon, cutoffs and held-out predictions are needed before comparing this with Account Compass's measured results.
 
 ## Part 2 (Prioritise): who gets help first?
 
-**Priority = money spent in the last 12 months × chance of leaving × chance we can still win them back.**
+**Exported priority = historical annual merchandise-value proxy × supplied risk estimate × saveability weight.**
 
-The last part comes from history: a customer quiet for under 30 days counts fully (1.0), and one quiet for 120+ days counts 0.77. The highest priority gets help first, through the lane that fits:
+Ritmo reports weights from 1.0 for under 30 days of inactivity to about 0.77 for 120+ days. Their derivation is not included. Historical return behaviour alone does not establish the benefit of an intervention, so these are prototype weights rather than verified probabilities of saving an account. The supplied channel allocation is:
 
 1. **Rep visit:** the 150 most important *regular* customers (5+ orders), as weekly routes per state (12 visits a week).
 2. **AI phone call:** the next 850.
 3. **WhatsApp offer:** about 7,000 other at-risk and new customers.
 4. **Keep an eye on:** everyone else.
 
-**Does it work?** On past data, our list caught **3.5 times more lost money** (29% vs 8% in the top 1,000) than a list based only on "who is most likely to leave". The rep sees a rank, the chance of leaving in %, and the reasons in plain words.
+**Reported performance, unverified:** Ritmo reports 29% versus 8% of its historical lost-value measure in the top 1,000 (described as about 3.5 times). Its evaluation code, value definition and cutoff-specific results are needed to verify that comparison. The app displays the supplied rank, risk estimate and observations.
 
 ## Real examples
+
+These are exported challenge accounts, not HEINEKEN customers. Percentages are rounded; priority uses unrounded underlying estimates, so displayed multiplications are approximate. Product categories represent hypothetical portfolio lines. Route sequences are illustrative and do not incorporate road travel times.
 
 | Customer | Facts | Why flagged | Score | Result |
 | --- | --- | --- | --- | --- |

@@ -10,14 +10,14 @@ import plotly.graph_objects as go
 import streamlit as st
 import streamlit.components.v1 as components
 
-from app.act_engine import LANES, REASON_OPTIONS, load_priority, load_routes, order_route, plan, pretty
+from app.act_engine import LANES, REASON_OPTIONS, load_priority, load_routes, order_route, plan, pretty, morning_briefing_text
 
 GREEN = "#00834D"
 
 
 def speak_button(text, key, label="▶ Play 30-second briefing"):
-    """Reads text aloud with the browser's own voice: no keys, works on any public link."""
-    safe = json.dumps(text)
+    """Reads text aloud in browsers that support speech synthesis."""
+    safe = json.dumps(text).replace("<", "\\u003c")
     components.html(f"""
     <button id="b{key}" style="background:{GREEN};color:white;border:0;border-radius:10px;padding:10px 16px;
       font-size:15px;cursor:pointer;font-family:sans-serif">{html.escape(label)}</button>
@@ -26,13 +26,14 @@ def speak_button(text, key, label="▶ Play 30-second briefing"):
     <script>
     const t = {safe};
     document.getElementById("b{key}").onclick = () => {{
+      if (!("speechSynthesis" in window)) {{ alert("Audio is unavailable in this browser. Read the briefing text below."); return; }}
       speechSynthesis.cancel();
       const u = new SpeechSynthesisUtterance(t); u.lang = "en-GB"; u.rate = 1.02;
       const v = speechSynthesis.getVoices().find(v => v.lang && v.lang.startsWith("en"));
       if (v) u.voice = v;
       speechSynthesis.speak(u);
     }};
-    document.getElementById("s{key}").onclick = () => speechSynthesis.cancel();
+    document.getElementById("s{key}").onclick = () => {{ if ("speechSynthesis" in window) speechSynthesis.cancel(); }};
     </script>""", height=52)
 
 
@@ -51,17 +52,22 @@ def _lane_badge(lane):
 
 def _identify_line(accounts, account_id):
     row = accounts[accounts.account_id == account_id]
-    if row.empty or pd.isna(row.iloc[0].risk_probability):
-        return "Account Compass 60-day forecast: not modelled (fewer than 10 orders), so Ritmo's rhythm signals carry it."
+    if row.empty:
+        return "No matching Account Compass record is loaded."
+    if pd.isna(row.iloc[0].risk_probability):
+        return "Account Compass 60-day forecast: outside model coverage (order count, history length or ordering gaps)."
     r = row.iloc[0]
     return f"Account Compass 60-day forecast: {r.risk_probability:.0%} chance of no order ({r.risk_level} band)."
 
 
 def why_card(act, accounts, key, history=None):
     rec, offer = act["record"], act["offer"]
-    st.markdown(f"{_lane_badge(act['lane'])} &nbsp; **Priority #{int(rec['rank']):,}** · "
-                f"{rec['churn_chance_pct']:.0f}% chance of going silent for 60 days · "
-                f"value at stake {rec['value_at_risk']:,.0f}", unsafe_allow_html=True)
+    if pd.notna(rec.get("rank")):
+        st.markdown(f"{_lane_badge(act['lane'])} &nbsp; **Priority #{int(rec['rank']):,}** · "
+                    f"Ritmo 60-day risk estimate {rec['churn_chance_pct']:.0f}% · "
+                    f"estimated value at stake {rec['value_at_risk']:,.0f}", unsafe_allow_html=True)
+    else:
+        st.markdown(f"{_lane_badge(act['lane'])} &nbsp; **Unranked · insufficient history**", unsafe_allow_html=True)
     st.caption(_identify_line(accounts, rec["account_id"]))
     a, b = st.columns([3, 2])
     with a:
@@ -73,8 +79,12 @@ def why_card(act, accounts, key, history=None):
         st.markdown(f"**Usually buys:** {pretty(rec['top_categories'])}")
     with b:
         with st.container(border=True):
-            st.markdown(f"🎁 **{offer['headline']}**")
-            st.write(offer["detail"])
+            if act["lane"] == "Monitor":
+                st.write("No contact or offer scheduled in this priority export.")
+            else:
+                st.markdown(f"🎁 **{offer['headline']}**")
+                st.write(offer["detail"])
+                st.caption("Illustrative offer for the demo; terms are not validated by the model.")
     speak_button(act["briefing"], key)
     with st.expander("Briefing text"):
         st.write(act["briefing"])
@@ -105,13 +115,19 @@ def action_card(action, accounts):
 # ---------------------------------------------------------------- Act tab
 
 def _log_reason(account_id, reason, outcome):
-    st.session_state.setdefault("call_log", []).append({"account_id": account_id, "reason": reason, "outcome": outcome})
+    log = st.session_state.setdefault("call_log", [])
+    entry = {"account_id": account_id, "reason": reason, "outcome": outcome}
+    for index, previous in enumerate(log):
+        if previous["account_id"] == account_id:
+            log[index] = entry
+            return
+    log.append(entry)
 
 
 def _overview(prio):
     st.markdown("#### From warning to action")
-    st.write("Account Compass says **how likely** a shop is to stop ordering. Ritmo adds **who to save first** "
-             "(money at stake × chance × can it still be saved) and **what to do**. A rep can't visit thousands of shops, "
+    st.write("Account Compass estimates future inactivity. Ritmo adds an exported **priority ranking** "
+             "(historical value × supplied risk estimate × saveability weight) and a proposed action. A rep can't visit thousands of shops, "
              "so each flagged account goes down one of three lanes.")
     cols = st.columns(4)
     for col, lane in zip(cols, LANES):
@@ -129,49 +145,21 @@ def _rep_week(prio, accounts, history):
         st.info("No route file found.")
         return
     names = sorted(prio.loc[prio.route != "", "route"].unique(), key=lambda r: (r != "RJ week 1", r))
+    if not names:
+        st.info("No routes match the loaded accounts.")
+        return
     route = st.selectbox("This week's route", names, key="route_pick")
     stops = order_route(prio[prio.route == route])
+    if stops.empty:
+        st.info("No stops with coordinates are available for this route.")
+        return
     st.markdown(f"**{len(stops)} visits** in {route.split(' ')[0]} · value at stake {stops.value_at_risk.sum():,.0f}")
 
-    # Morning route briefing
-    top_stops = stops.sort_values("rank").head(3)
-
-    morning_parts = [
-    f"Good morning. You have {len(stops)} priority visits today in "
-    f"{route.split(' ')[0]}, representing approximately "
-    f"{stops.value_at_risk.sum():,.0f} in value at stake."
-]
-
-if not top_stops.empty:
-    first = top_stops.iloc[0]
-    morning_parts.append(
-        f"Your most important stop is account {first['account_id']} in "
-        f"{str(first['city']).title()}, ranked number {int(first['rank'])}. "
-        f"It has a {first['churn_chance_pct']:.0f} percent chance of going silent "
-        f"and {first['value_at_risk']:,.0f} in value at stake."
-    )
-
-if len(top_stops) > 1:
-    morning_parts.append(
-        "Other accounts to watch closely are "
-        + ", ".join(
-            f"{row.account_id} in {str(row.city).title()}"
-            for _, row in top_stops.iloc[1:].iterrows()
-        )
-        + "."
-    )
-
-morning_parts.append(
-    "Focus first on high-value accounts where ordering behaviour has clearly changed. "
-    "Before each visit, play the individual briefing for the key talking points "
-    "and recommended offer."
-)
-
-    morning_briefing = " ".join(morning_parts)
+    morning_briefing = morning_briefing_text(stops, route)
 
     with st.container(border=True):
         st.markdown("### 🎧 Morning Route Briefing")
-        st.write("Your quick spoken overview before starting today's route.")
+        st.write("Your spoken overview of the selected weekly route.")
 
         speak_button(
             morning_briefing,
@@ -196,6 +184,7 @@ morning_parts.append(
                                center=dict(lat=(stops.lat.max() + stops.lat.min()) / 2, lon=(stops.lng.max() + stops.lng.min()) / 2)),
                       height=420, margin=dict(l=0, r=0, t=0, b=0))
     st.plotly_chart(fig, width="stretch", key="routemap")
+    st.caption("Illustrative stop sequence using coordinate distances. Lines do not represent roads or driving times.")
     table = stops[["stop", "account_id", "city", "rank", "churn_chance_pct", "value_at_risk", "reason_1"]].copy()
     table["city"] = table.city.str.title()
     st.dataframe(table, hide_index=True, width="stretch", column_config={
@@ -221,11 +210,14 @@ def _agent_id():
 
 
 def _ai_call(prio, accounts):
-    st.write("Lane B is too big for reps (850 accounts), so an AI voice agent calls them. It knows why each shop was flagged, "
-             "**asks the question the data can't answer: why did you slow down?**, makes the offer, and hands unhappy or big "
-             "customers to the rep. In Brazil it would speak Portuguese; the demo is in English.")
+    st.write("Lane B proposes calls for accounts beyond the rep visit capacity. This English role-play asks "
+             "**why did you slow down?**, proposes an offer, or requests rep follow-up. "
+             "The scripted demo does not call customers, book orders or change visit routes.")
     agent_id = _agent_id()
     lane_b = prio[prio.lane == "B: AI call"].sort_values("rank").head(40)
+    if lane_b.empty:
+        st.info("No AI call accounts match the current filters.")
+        return
     pick = st.selectbox("Account to call", lane_b.account_id.tolist(), key="call_pick",
                         format_func=lambda a: f"#{int(lane_b.set_index('account_id').loc[a, 'rank'])} · {a} · "
                                               f"{lane_b.set_index('account_id').loc[a, 'city'].title()}")
@@ -250,16 +242,28 @@ def _ai_call(prio, accounts):
         unhappy = reason in ("Delivery or service problem", "Switched to a competitor")
         if unhappy:
             _bubble(script["handover"])
-            outcome = "Handed to rep"
-            st.warning(f"Handed to the rep with a note: '{reason}'. The account joins next week's visit list.")
+            outcome = "Rep follow-up requested (demo)"
+            st.warning(f"Demo follow-up requested: '{reason}'. This records a note in this session; visit routes are unchanged.")
+        elif reason == "Closed or quiet season":
+            _bubble("Thanks for letting us know. We can pause contact and ask when it would suit you to check in again.")
+            outcome = "Contact paused (demo)"
+            st.info("Demo: contact paused pending a suitable follow-up date. No offer was accepted.")
         else:
             _bubble(script["offer"])
-            _bubble("Okay, add it.", "customer")
-            _bubble(script["close"])
-            outcome = "Offer accepted"
-            st.success(f"Offer booked: {act['offer']['detail']}")
-        if st.session_state.get(state_key) != reason:
-            st.session_state[state_key] = reason
+            response = st.radio("Shop owner's response to the offer", ["Not decided", "Accept offer", "Decline offer"],
+                                key=f"offer_{pick}_{reason}", horizontal=True)
+            outcome = "Offer proposed (demo)"
+            if response == "Accept offer":
+                _bubble("Okay, I would like that offer.", "customer")
+                outcome = "Offer accepted (demo)"
+                st.success(f"Demo acceptance recorded: {act['offer']['detail']} No order is booked.")
+            elif response == "Decline offer":
+                _bubble("No thanks, not this time.", "customer")
+                outcome = "Offer declined (demo)"
+                st.info("Demo: offer declined. No order is booked.")
+        signature = (reason, outcome)
+        if st.session_state.get(state_key) != signature:
+            st.session_state[state_key] = signature
             _log_reason(pick, reason, outcome)
         lines = [script["opener"], script["ask"], script["handover"] if unhappy else script["offer"]]
         speak_button(" ".join(lines), key=f"call{pick}", label="▶ Hear the agent's side")
@@ -268,8 +272,8 @@ def _ai_call(prio, accounts):
 
 
 def _whatsapp(prio):
-    st.write("Lane C covers thousands of smaller accounts. Each gets one friendly WhatsApp with a tailored offer "
-             "(95% of Brazilian companies use WhatsApp as their main channel). The numbered reply menu collects *why*.")
+    st.write("Lane C proposes WhatsApp drafts for smaller accounts. Each draft includes an illustrative offer "
+             "and a numbered reply menu asking what changed. Messages and replies are simulated.")
     lane_c = prio[prio.lane == "C: WhatsApp nudge"].sort_values("rank")
     st.markdown(f"**Outbox:** {len(lane_c):,} messages ready this week. First 8 shown.")
     for _, rec in lane_c.head(8).iterrows():
@@ -280,13 +284,14 @@ def _whatsapp(prio):
             st.caption(f"In English: we miss you, it's been {int(rec.days_since_last_order)} days; offer: {act['offer']['detail']} "
                        "Reply YES, or tell us what changed (price, other supplier, closed, delivery, other).")
     if st.button(f"Send all {len(lane_c):,} (demo)", key="sendall"):
-        st.success(f"{len(lane_c):,} WhatsApp messages queued. Replies flow into 'What we learn'. (Demo: nothing is actually sent.)")
+        st.success(f"Demo preview: {len(lane_c):,} WhatsApp drafts. Nothing is sent or queued; simulated replies appear in 'What we learn'.")
 
 
 def _learn(prio):
-    st.write("Part 1 showed the order data can't explain **why** shops slow down: late deliveries and bad reviews don't predict it. "
-             "So every call and WhatsApp reply logs a reason. Over time this tells HEINEKEN which offer works for which reason, "
-             "the next step towards a real 'next best action' engine like AIDDA.")
+    st.write("Order histories show behaviour changes but do not establish why they occurred. "
+             "This dashboard illustrates collecting customer reasons to inform later action evaluation. "
+             "Role-play notes are held only in this session; the other replies below are simulated. "
+             "The current data does not measure whether an offer causes a customer to return.")
     rng = pd.Series([0.27, 0.22, 0.18, 0.12, 0.15, 0.06], index=REASON_OPTIONS)
     contacted = int(len(prio[prio.lane.isin(["B: AI call", "C: WhatsApp nudge"])]) * 0.18)
     sim = (rng * contacted).round().astype(int).rename("Simulated replies").to_frame()
@@ -305,11 +310,23 @@ def _learn(prio):
         st.dataframe(log, hide_index=True, width="stretch")
 
 
-def render_act_tab(accounts, history):
+def render_act_tab(accounts, history, synthetic=False):
+    if synthetic:
+        st.info("The fictional Identify demo has no matching Act exports. Use the bundled challenge snapshot to explore routes and calls.")
+        return
+    if not accounts.empty and not accounts.analysis_date.eq("2018-08-31").all():
+        st.info("The bundled Act exports belong to 2018-08-31. No matching Act plan is available for this snapshot.")
+        return
     prio = load_priority()
     if prio.empty:
         st.info("Ritmo priority list not found (demo_data/ritmo/priority_list.csv).")
         return
+    prio = prio[prio.account_id.isin(accounts.account_id)]
+    if prio.empty:
+        st.info("No Act records match the current account filters.")
+        return
+    st.info("Ritmo risk estimates and saveability weights are supplied prototype inputs; their independent validation is pending. "
+            "Account Compass validation is available in the Validation & handoff tab.")
     _overview(prio)
     t1, t2, t3, t4 = st.tabs(["🚗 Rep's week", "📞 AI call", "💬 WhatsApp", "📊 What we learn"])
     with t1:

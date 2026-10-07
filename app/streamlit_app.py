@@ -97,7 +97,7 @@ st.caption(f"{filtered.model_eligible.sum():,} accounts in view have modelled pr
 
 act_tab, work_tab, methods_tab = st.tabs(["Act: this week", "Account workspace", "Validation & handoff"])
 with act_tab:
-    render_act_tab(accounts, history)
+    render_act_tab(filtered, history, synthetic=synthetic)
 with work_tab:
     st.subheader("Account watchlist")
     sort_by = st.selectbox("Sort by", ["Highest risk", "Highest historical value", "Longest inactivity"], key="sort")
@@ -213,5 +213,5 @@ with methods_tab:
         if summary.exists():
             st.download_button("Download model summary", summary.read_text(), file_name="model_summary.md")
     st.markdown("#### Teammate integration")
-    st.write("Use the scored-account CSV or selected-account JSON. Implement recommended_action(account) in app/action_layer.py. Modelled status, nullable probability, target horizon, evidence reasons and schema version travel with the record.")
-    st.caption("A public demo can run entirely on the fictional examples. The repository does not include the supplied raw CSVs or full account-level challenge outputs.")
+    st.write("Use the scored-account CSV or selected-account JSON. The Act hook in app/action_layer.py reads the bundled Ritmo exports. Modelled status, nullable probability, target horizon, evidence reasons and schema version travel with the record.")
+    st.caption("The repository includes derived challenge outputs in demo_data and fictional examples in examples. Supplied raw CSVs are excluded. Ritmo training and validation scripts are not included.")

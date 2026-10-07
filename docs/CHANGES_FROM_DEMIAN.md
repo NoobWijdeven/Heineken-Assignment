@@ -1,6 +1,12 @@
 # What changed compared to Demian's version
 
-This is a short handoff for Demian. It lists everything that changed on branch `teammate/action-layer` (PR #2) compared to his branch `demian/identify-model`. Nothing in his pipeline (`src/`) or tests was changed.
+This records the teammate additions on `teammate/action-layer` compared with `demian/identify-model`. The original Identify pipeline in `src/` remains unchanged. Integration repairs and new regression tests are described below.
+
+## Integration update
+
+Daniel's `daniel/morning-briefing` branch includes Sep's latest 60-day exports and the full Identify pipeline. The combined version adds Daniel's spoken weekly-route overview, corrects the indentation error in that addition, handles unranked sparse accounts, keeps fictional and challenge data separate, applies sidebar filters to Act, and explicitly labels call/offer/message outcomes as simulations. Role-play offer acceptance requires a user response; a closed or seasonal account is paused. Session feedback updates one record per account, without duplicate counts on reruns. Routes remain illustrative coordinate sequences.
+
+Ritmo's scores and weights are external prototype inputs. Its training and validation scripts remain absent; the reported metrics are preserved as unverified teammate claims in `part1_part2.md`. The Identify schema and original validation results are unchanged.
 
 ## In one sentence
 
@@ -17,7 +23,7 @@ Account Compass now also does Part 2 (who to help first) and Part 3 (what to do)
 
 | What | Where | Plain explanation |
 | --- | --- | --- |
-| New first tab **"Act: this week"** | `app/act_views.py` | Four screens: **Rep's week** (map of 12 visits per week with a "why card" and a read-aloud briefing per shop), **AI call** (a call agent that says what changed, asks *why*, and books an offer or hands the shop to the rep), **WhatsApp** (ready messages in Portuguese for small shops) and **What we learn** (chart of the reasons customers give). |
+| New first tab **"Act: this week"** | `app/act_views.py` | Four screens: **Rep's week** (illustrative visit map, morning overview and account briefings), **AI call** (role-play with proposed offers and follow-up notes), **WhatsApp** (Portuguese message drafts) and **What we learn** (simulated replies and session role-play notes). |
 | The Act hook is filled in | `app/action_layer.py` | `recommended_action(account)` now returns the lane (rep visit, AI call, WhatsApp or monitor), the priority rank, the reasons and the offer, instead of the placeholder text. It still returns `title` and `message`, so the contract holds. |
 | Offer, briefing and script logic | `app/act_engine.py` | Builds the offer (the dropped product bundled with the shop's usual order, or a restock reminder), the 30-second briefing, the call script and the WhatsApp text. It only reads files; nothing is re-scored. |
 | Prioritisation data (Part 2) | `demo_data/ritmo/` | `priority_list.csv` (rank, lane, chance, reasons for every account) and `lane_a_routes.csv` (weekly rep routes). Made by the Ritmo scripts, outside this repo. |
@@ -45,8 +51,8 @@ What moved with the switch:
 - Niterói (the demo shop) is now **#17**, with a 24% chance of leaving. It's still on the Rio week 1 route.
 - Lanes: 150 rep visits, 850 AI calls, 7,016 WhatsApp messages, 6,973 to monitor.
 - Rep routes: São Paulo 43 visits, Minas Gerais 21, Rio de Janeiro 16, plus smaller states.
-- Dropping a core product is now 2 to 2.6x the risk (it was 3.5x with 90 days).
+- Ritmo reports 2 to 2.6x risk for dropping a core product (previously 3.5x with 90 days); this claim remains unverified without its supporting analysis.
 
-## Known test result
+## Tests
 
-17 of 18 tests pass. `test_future_purchases_cannot_change_features` fails on a pandas 3 string-type difference, because the test machine had pandas 3 instead of the pinned 2.2.3. It is not caused by these changes.
+Install the pinned `requirements.txt` before running `python -m pytest -q`. The integration suite covers the original Identify checks plus sparse-account navigation, fictional-data isolation, route/morning-briefing navigation and simulated call outcomes. The optional ElevenLabs widget and browser audio playback require separate manual verification.
